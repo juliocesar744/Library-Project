@@ -9,6 +9,63 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Reader {
+  user_id  Int       @id @default(autoincrement())
+  email    String
+  name     String
+  phone_no String
+  address  String
+  Reports  Reports[]
+
+  @@map("readers")
+}
+
+model Staff {
+  staff_id Int    @id @default(autoincrement())
+  name     String
+
+  @@map("staffs")
+}
+
+model Book {
+  book_no           Int       @id @default(autoincrement())
+  title             String
+  category          String
+  price             Float
+  edition           String
+  yearofpublication Int
+  publisher_id      Int
+  publisher         Publisher @relation(fields: [publisher_id], references: [publisher_id])
+  Reports           Reports[]
+
+  @@map("books")
+}
+
+model Publisher {
+  publisher_id      Int     @id @default(autoincrement())
+  name              String
+  yearOfPublication Int
+  books             Book[]
+
+  @@map("publishers")
+}
+
+model Login {
+  username String @id
+  password String
+
+  @@map("logins")
+}
+
+model Reports {
+  reg_no Int    @id @default(autoincrement())
+  user_id   Int
+  book_no   Int
+  return DateTime
+  readers    Reader @relation(fields: [user_id], references: [user_id])
+  books    Book  @relation(fields: [book_no], references: [book_no])
 }
