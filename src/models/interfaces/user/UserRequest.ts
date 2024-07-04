@@ -3,6 +3,11 @@ export interface UserRequest {
     password: string
 }
 
-export interface UserDeleteRequest {
+export interface UsernameRequest {
+    username: string;
+}
+
+export interface UserUpdateRequest {
+    oldUsername: string;
     username: string;
 }
