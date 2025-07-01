@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+enum Category {
+  FICCAO
+  NAO_FICCAO
+  FICCAO_CIENTIFICA
+  FANTASIA
+  MISTERIO
+  ROMANCE
+  TERROR
+  BIOGRAFIA
+  HISTORIA
+  INFANTIL
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  USER
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  book_no           Int       @id @default(autoincrement())
+  title             String
+  category          Category
+  price             Float
+  edition           String
+  yearofpublication Int
+  publisher_id      Int
+  publisher         Publisher @relation(fields: [publisher_id], references: [publisher_id])
+  Reports           Reports[]
+
+  @@map("books")
+}
+
+model Publisher {
+  publisher_id      Int     @id @default(autoincrement())
+  name              String
+  yearOfPublication Int
+  books             Book[]
+
+  @@map("publishers")
+}
+
+model User {
+  user_id  Int    @id @default(autoincrement())
+  username String 
+  password String
+  role     Role
+  email    String
+  phone_no String
+  address  String
+  Reports  Reports[]
+
+  @@map("users")
+}
+
+model Reports {
+  reg_no Int    @id @default(autoincrement())
+  user_id   Int
+  book_no   Int
+  return DateTime
+  readers    User @relation(fields: [user_id], references: [user_id])
+  books    Book  @relation(fields: [book_no], references: [book_no])
+}
