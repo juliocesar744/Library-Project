@@ -4,13 +4,13 @@ import { ReportRequest } from "../../models/interfaces/ReportResquest";
 
 class CreateReportController {
   async handle(request: Request, response: Response) {
-    const { user_id, book_no, return: returnDate }: ReportRequest = request.body;
+    const { user_id, book_no, returnDate }: ReportRequest = request.body;
 
     const createReportService = new CreateReportService();
     const report = await createReportService.execute({
         user_id,
         book_no,
-        return: new Date(returnDate)
+        returnDate: new Date(returnDate)
     });
 
     return response.json(report);

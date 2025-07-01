@@ -49,7 +49,6 @@ model Book {
 model Publisher {
   publisher_id      Int     @id @default(autoincrement())
   name              String
-  yearOfPublication Int
   books             Book[]
 
   @@map("publishers")
@@ -72,7 +71,7 @@ model Reports {
   reg_no Int    @id @default(autoincrement())
   user_id   Int
   book_no   Int
-  return DateTime
+  returnDate DateTime
   readers    User @relation(fields: [user_id], references: [user_id])
   books    Book  @relation(fields: [book_no], references: [book_no])
 }

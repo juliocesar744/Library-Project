@@ -2,7 +2,7 @@ import { ReportRequest } from "../../models/interfaces/ReportResquest";
 import prismaClient from "../../prisma";
 
 class CreateReportService {
-  async execute({ user_id, book_no, return: returnDate }: ReportRequest) {
+  async execute({ user_id, book_no, returnDate }: ReportRequest) {
 
     const userExists = await prismaClient.user.findUnique({
       where: { user_id }
@@ -24,11 +24,11 @@ class CreateReportService {
       data: {
         user_id,
         book_no,
-        return: returnDate
+        returnDate: returnDate
       },
       select: {
         reg_no: true,
-        return: true,
+        returnDate: true,
         readers: {
           select: {
             username: true
