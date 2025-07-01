@@ -13,7 +13,7 @@ class CreateUserService {
             address,
         }: UserRequest) {
         if(!username) {
-            throw new Error("Insert a Username");
+            throw new Error("Insira o nome de usuário");
         }
 
         const userAlreadyExists = await prismaClient.user.findFirst({
@@ -23,7 +23,17 @@ class CreateUserService {
         })
 
         if (userAlreadyExists) {
-            throw new Error("Username already exists");
+            throw new Error("Usuário já existe");
+        }
+
+        const emailAlreadyExists = await prismaClient.user.findFirst({
+            where: {
+                email: email
+            }
+        })
+
+        if (emailAlreadyExists) {
+            throw new Error("Email já existe");
         }
 
         const lenghtOfHash = 8;

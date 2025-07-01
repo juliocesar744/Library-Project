@@ -1,4 +1,4 @@
-import {Router, Request, Response } from "express"
+import { Router } from "express"
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { DeleteUserController } from "./controllers/user/DeleteUserController";
 import { UpdateUserController } from "./controllers/user/UpdateUserController";
@@ -15,8 +15,11 @@ import { CreateReportController } from "./controllers/report/CreateReportControl
 import { DeleteReportController } from "./controllers/report/DeleteReportController";
 import { UpdateReportController } from "./controllers/report/UpdateReportController";
 import { ListReportController } from "./controllers/report/ListReportController";
+import { AuthController } from "./controllers/auth/AuthController";
 
 const router = Router();
+
+const authController = new AuthController()
 
 //User Routes
 router.post('/userCreate', new CreateUserController().handle);
@@ -41,5 +44,8 @@ router.post('/reportCreate', new CreateReportController().handle);
 router.delete('/reportDelete', new DeleteReportController().handle);
 router.get('/reportList', new ListReportController().handle);
 router.post('/reportUpdate', new UpdateReportController().handle);
+
+// Authentication Route
+router.post('/login', authController.handle);
 
 export { router };
