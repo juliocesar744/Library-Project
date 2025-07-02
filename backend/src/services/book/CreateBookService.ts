@@ -14,7 +14,6 @@ class CreateBookService {
         const bookAlreadyExists = await prismaClient.book.findFirst({
             where: {
                 title: title,
-                category: category as Category,
                 edition: edition,
             }
         })

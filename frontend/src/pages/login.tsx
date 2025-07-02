@@ -1,13 +1,11 @@
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import { GenericForm } from "@/components/GenericForm";
 import { z } from "zod";
 import { Role } from "@/enums/role";
+import { GenericForm } from "@/components/form/GenericForm";
+import Button from "@/components/ui/Button";
 
 
 const loginSchema = z.object({
@@ -65,14 +63,12 @@ export default function Login() {
     const router = useRouter();
 
     useEffect(() => {
-        console.log('isAuthenticated:', isAuthenticated);
-        if (!isAuthenticated) {
-            router.push('/dashboard');
+        if (isAuthenticated) {
+            router.push('/books');
         }
     }, [isAuthenticated]);
 
     const handleSubmit = async (data: LoginData) => {
-
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/login`, {
             method: "POST",
             headers: {

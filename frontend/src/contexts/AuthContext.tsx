@@ -15,7 +15,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    // Checa se já tem token salvo (ex: após recarregar a página)
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
@@ -25,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = (token: string) => {
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
-    router.push("/dashboard"); // redireciona após login
+    router.push("/books");
   };
 
   const logout = () => {
