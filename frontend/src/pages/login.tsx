@@ -81,7 +81,7 @@ export default function Login() {
         const result = await response.json();
 
         if (response.ok && result.token) {
-            login(result.token);
+            login(result.token, result.user);
         } else {
             alert("Credenciais inválidas");
         }

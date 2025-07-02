@@ -16,6 +16,7 @@ import { DeleteReportController } from "./controllers/report/DeleteReportControl
 import { UpdateReportController } from "./controllers/report/UpdateReportController";
 import { ListReportController } from "./controllers/report/ListReportController";
 import { AuthController } from "./controllers/auth/AuthController";
+import { FindBookByIdController } from "./controllers/book/FindBookByIdController";
 
 const router = Router();
 
@@ -32,6 +33,9 @@ router.post('/bookCreate', new CreateBookController().handle);
 router.delete('/bookDelete', new DeleteBookController().handle);
 router.get('/bookList', new ListBookController().handle);
 router.post('/bookUpdate', new UpdateBookController().handle);
+
+router.get('/bookById/:book_no', new FindBookByIdController().handle);
+
 
 //Publisher Routes
 router.post('/publisherCreate', new CreatePublisherController().handle);
