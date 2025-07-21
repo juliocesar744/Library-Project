@@ -74,6 +74,9 @@ export default function Report() {
     }
   }
 
+  const handleCancel = () => {
+    router.push("/books");  
+  }
 
   useEffect(() => {
     if (book_no) {
@@ -127,7 +130,7 @@ export default function Report() {
           }
           <div className="flex gap-4">
             <Button type="submit" form="report-form">Enviar</Button>
-            <Button>Cancelar</Button>
+            <Button onClick={handleCancel}>Cancelar</Button>
           </div>
           
         </div>

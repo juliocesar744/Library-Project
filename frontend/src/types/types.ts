@@ -9,3 +9,8 @@ export type ReportCreate = {
     book_no: number;
     returnDate: Date;
 }
+
+export type PublishersList = {
+    publisher_id: number;
+    name: string;
+}
